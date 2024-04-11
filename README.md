@@ -7,7 +7,7 @@ The user will specify the text in which the extension performs the search before
 
 1. Clone this repository
 2. Unarchive the `page-text-finder-master` folder
-3. Open Chrome and go to [chrome://extensions/](chrome://extensions/)
+3. Open Chrome and go to [`chrome://extensions/`](chrome://extensions/)
 4. Enable Developer mode (top right corner)
 5. Click on "Load unpacked" and select the folder where you unarchived the repository
 6. Restart Chrome
