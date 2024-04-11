@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html>
-	<body>
-		<div id="textBox" contenteditable style="width: 150px; height: 150px; border: 1px solid #ccc; overflow-y: scroll; margin-bottom: 10px"></div>
-		<button id="saveButton" style="width: 100%">Save</button>
+	<style>
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
+	</style>
+	<body style="display: flex; flex-direction: column; row-gap: 10px; width: 200px">
+		<div id="textBox" contenteditable style="height: 250px; border: 1px solid #ccc; overflow-y: scroll"></div>
+		<div style="display: flex; column-gap: 10px">
+			<button id="helpButton">?</button>
+			<input type="number" id="bufferSize" style="min-width: 0" placeholder="buffer" />
+			<button id="clearButton">Clear</button>
+			<button id="saveButton">Save</button>
+		</div>
 		<script src="popup.js" type="module"></script>
 	</body>
 </html>

@@ -8,7 +8,7 @@ document.addEventListener('mouseup', () => {
 		chrome.runtime.sendMessage({ text: selectedText }, ({ text, index }) => {
 			const div = document.createElement('div');
 
-			// if index is found, set the text
+			// if index is found, display the text
 			div.innerHTML = index !== -1 ? text : 'not found';
 			showMessageOnPage(div);
 		});
@@ -27,9 +27,11 @@ const showMessageOnPage = (rawDiv) => {
 		padding: '10px',
 		zIndex: '10000',
 		backgroundColor: 'white',
+		color: 'black',
 		border: '1px solid black',
 		'max-width': '800px',
 		'max-height': '800px',
+		'overflow-y': 'auto',
 		borderRadius: '5px',
 	});
 
