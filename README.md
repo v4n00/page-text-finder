@@ -5,12 +5,11 @@ The user will specify the text in which the extension performs the search before
 
 ## Download
 
-1. Clone this repository
-2. Unarchive the `page-text-finder-master` folder
-3. Open Chrome and go to [`chrome://extensions/`](chrome://extensions/)
-4. Enable Developer mode (top right corner)
-5. Click on "Load unpacked" and select the folder where you unarchived the repository
-6. Restart Chrome
+1. Download [page-text-finder.crx](https://github.com/v4n00/page-text-finder/releases/download/v1.0.0/page-text-finder.crx) from the releases page of this repository.
+2. Open Chrome and go to `chrome://extensions/`
+3. Enable Developer mode (top right corner)
+4. Drag'n'drop `page-text-finder.crx` into the Chrome window
+5. Click `Add extension`
 
 ## Usage
 
