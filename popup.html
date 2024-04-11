@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Persistent TextBox</title>
-	</head>
 	<body>
-		<textarea id="textBox" rows="10" cols="30" style="resize: none"></textarea>
-		<div style="display: flex; align-items: center; justify-content: space-between">
-			<button id="saveButton">Save</button>
-			<div style="display: flex; align-items: center">
-				<label for="enabledCheckbox">Enabled?</label>
-				<input type="checkbox" id="enabledCheckbox" />
-			</div>
-		</div>
-		<script src="popup.js"></script>
+		<div id="textBox" contenteditable style="width: 150px; height: 150px; border: 1px solid #ccc; overflow-y: scroll; margin-bottom: 10px"></div>
+		<button id="saveButton" style="width: 100%">Save</button>
+		<script src="popup.js" type="module"></script>
 	</body>
 </html>

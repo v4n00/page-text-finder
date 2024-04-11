@@ -1,14 +1,14 @@
-document.addEventListener('DOMContentLoaded', () => {
-	let saveButton = document.getElementById('saveButton');
-	let textBox = document.getElementById('textBox');
+import { retrieveFromStorage, saveToStorage } from './functions.js';
 
-	// load saved text from storage
-	chrome.storage.sync.get('savedText', function (data) {
-		textBox.value = data.savedText || '';
-	});
+let saveButton = document.getElementById('saveButton');
+let textBox = document.getElementById('textBox');
 
-	// save text to storage
-	saveButton.addEventListener('click', function () {
-		chrome.storage.sync.set({ savedText: textBox.value });
-	});
+// load saved text from storage
+retrieveFromStorage('textStorage', function (data) {
+	textBox.innerHTML = data || '';
+});
+
+// save text to storage
+saveButton.addEventListener('click', function () {
+	saveToStorage('textStorage', textBox.innerHTML);
 });
