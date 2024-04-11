@@ -18,7 +18,7 @@ The user will specify the text in which the extension performs the search before
 3. Unarchive the `page-text-finder-master` folder
 4. Open Chrome and go to `chrome://extensions/`
 5. Enable Developer mode (top right corner)
-6. Click on "Load unpacked" and select the folder where you unarchived the repository
+6. Click on "Load unpacked" and select the folder that you unarchived
 7. Restart Chrome
 
 ## Usage
