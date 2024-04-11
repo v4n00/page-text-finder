@@ -7,7 +7,8 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
 				let response = '';
 
 				if (index !== -1) {
-					response = data.textStorage.substring(index - 1000, index + data.bufferSize);
+					response = data.textStorage.substring(index - 1000, index + parseInt(data.bufferSize));
+					console.log(response);
 				}
 
 				sendResponse({ text: response, index });
