@@ -1,6 +1,6 @@
 {
 	"manifest_version": 3,
-	"name": "TextFinder",
+	"name": "PageTextFinder",
 	"version": "1.0",
 	"permissions": ["activeTab", "storage", "unlimitedStorage"],
 	"icons": {
