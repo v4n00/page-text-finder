@@ -10,16 +10,17 @@ document.addEventListener('mouseup', () => {
 
 			// if index is found, display the text
 			div.innerHTML = index !== -1 ? text : 'not found';
-			showMessageOnPage(div);
+			showMessageOnPage(div, selectedText);
 		});
 	}
 });
 
-const showMessageOnPage = (rawDiv) => {
+const showMessageOnPage = (rawDiv, selectedText) => {
 	clearExistingMessage();
 
 	// add id and styling to the div
 	rawDiv.id = 'extensionMessageDiv';
+	rawDiv.innerHTML = rawDiv.innerHTML.replace(selectedText, `<span style="background-color: yellow;">${selectedText}</span>`);
 	Object.assign(rawDiv.style, {
 		position: 'fixed',
 		bottom: '20px',

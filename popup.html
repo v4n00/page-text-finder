@@ -6,13 +6,13 @@
 			-webkit-appearance: none;
 		}
 	</style>
-	<body style="display: flex; flex-direction: column; row-gap: 10px; width: 200px">
+	<body style="display: flex; flex-direction: column; row-gap: 10px; width: 400px">
 		<div id="textBox" contenteditable style="height: 250px; border: 1px solid #ccc; overflow-y: scroll"></div>
 		<div style="display: flex; column-gap: 10px">
 			<button id="helpButton">?</button>
-			<input type="number" id="bufferSize" style="min-width: 0" placeholder="buffer" />
-			<button id="clearButton">Clear</button>
-			<button id="saveButton">Save</button>
+			<input type="number" id="bufferSize" style="min-width: 0; max-width: 50px" placeholder="buffer" />
+			<button id="clearButton" style="flex-grow: 1">Clear</button>
+			<button id="saveButton" style="flex-grow: 1">Save</button>
 		</div>
 		<script src="popup.js" type="module"></script>
 	</body>
