@@ -1,14 +1,12 @@
-import { retrieveFromStorage, saveToStorage } from './functions.js';
-
 let saveButton = document.getElementById('saveButton');
 let textBox = document.getElementById('textBox');
 
-// load saved text from storage
-retrieveFromStorage('textStorage', function (data) {
-	textBox.innerHTML = data || '';
+// retrieve text from storage
+chrome.storage.local.get('textStorage', (data) => {
+	textBox.innerHTML = data.textStorage || '';
 });
 
 // save text to storage
-saveButton.addEventListener('click', function () {
-	saveToStorage('textStorage', textBox.innerHTML);
+saveButton.addEventListener('click', () => {
+	chrome.storage.local.set({ textStorage: textBox.innerHTML });
 });

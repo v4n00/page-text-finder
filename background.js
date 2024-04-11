@@ -1,12 +1,15 @@
-import { retrieveFromStorage } from './functions.js';
-
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
 	(async () => {
+		console.log('hi');
 		if (request.text) {
-			retrieveFromStorage('textStorage', (storage) => {
-				const found = storage.includes(request.text);
-				console.log(textStorage);
-				sendResponse(found ? 'found' : 'not found');
+			chrome.storage.local.get('textStorage', ({ textStorage }) => {
+				const index = textStorage.indexOf(request.text);
+
+				if (index !== -1) {
+					sendResponse({ text: textStorage.substring(index - 1000, index + 5000), index });
+				} else {
+					sendResponse({ text: request.text, index: -1 });
+				}
 			});
 		}
 	})();

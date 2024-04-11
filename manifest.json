@@ -2,13 +2,12 @@
 	"manifest_version": 3,
 	"name": "TextFinder",
 	"version": "1.0",
-	"permissions": ["activeTab", "storage"],
+	"permissions": ["activeTab", "storage", "unlimitedStorage"],
 	"action": {
 		"default_popup": "popup.html"
 	},
 	"background": {
-		"service_worker": "background.js",
-		"type": "module"
+		"service_worker": "background.js"
 	},
 	"content_scripts": [
 		{
