@@ -3,6 +3,9 @@
 	"name": "TextFinder",
 	"version": "1.0",
 	"permissions": ["activeTab", "storage", "unlimitedStorage"],
+	"icons": {
+		"128": "icon128.png"
+	},
 	"action": {
 		"default_popup": "popup.html"
 	},
