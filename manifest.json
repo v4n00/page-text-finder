@@ -3,7 +3,7 @@
 	"name": "PageTextFinder",
 	"description": "Find text on the page, based on your input.",
 	"version": "1.0",
-	"permissions": ["activeTab", "storage", "unlimitedStorage"],
+	"permissions": ["storage", "unlimitedStorage"],
 	"icons": {
 		"128": "icon128.png"
 	},
