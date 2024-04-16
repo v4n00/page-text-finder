@@ -5,14 +5,96 @@
 		input::-webkit-inner-spin-button {
 			-webkit-appearance: none;
 		}
+		body {
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
+			width: 400px;
+		}
+		.inputHolder {
+			display: flex;
+			column-gap: 10px;
+		}
+		#saveButton {
+			flex-grow: 1;
+		}
+		#clearButton {
+			flex-grow: 1;
+		}
+		#bufferSize {
+			min-width: 0;
+			max-width: 50px;
+		}
+		.wrapper {
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
+			padding: 5px 5px;
+			border: 2px solid #ccc;
+			border-radius: 10px;
+			overflow: hidden;
+			height: 250px;
+			cursor: text;
+		}
+		#textBox {
+			height: 100%;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			box-shadow: none;
+			outline: none;
+		}
+		::-webkit-scrollbar {
+			width: 10px;
+			height: 10px;
+		}
+		::-webkit-scrollbar-thumb {
+			background: gray;
+			border-radius: 30px;
+			padding-right: 10px;
+		}
+		button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			white-space: nowrap;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			font-size: 0.875rem;
+			line-height: 1.25rem;
+			font-weight: 500;
+			cursor: pointer;
+			font-family: consolas;
+		}
+		button:hover {
+			background-color: rgb(250, 250, 250);
+		}
+		button:active {
+			background-color: rgb(250, 250, 250);
+			box-shadow: 0 1px #b1b1b1;
+			transform: translateY(1px);
+		}
+		input {
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			font-size: 0.875rem;
+			line-height: 1.25rem;
+			font-weight: 500;
+			padding-left: 0.75rem;
+			padding-right: 0.75rem;
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+			font-family: consolas;
+		}
 	</style>
-	<body style="display: flex; flex-direction: column; row-gap: 10px; width: 400px">
-		<div id="textBox" contenteditable style="height: 250px; border: 1px solid #ccc; overflow-y: scroll"></div>
-		<div style="display: flex; column-gap: 10px">
+	<body>
+		<div class="wrapper">
+			<div id="textBox" contenteditable></div>
+		</div>
+		<div class="inputHolder">
 			<button id="helpButton">?</button>
-			<input type="number" id="bufferSize" style="min-width: 0; max-width: 50px" placeholder="buffer" />
-			<button id="clearButton" style="flex-grow: 1">Clear</button>
-			<button id="saveButton" style="flex-grow: 1">Save</button>
+			<input type="number" id="bufferSize" placeholder="Buffer" />
+			<button id="clearButton">Clear</button>
+			<button id="saveButton">Save</button>
 		</div>
 		<script src="popup.js" type="module"></script>
 	</body>

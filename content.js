@@ -20,7 +20,7 @@ const showMessageOnPage = (rawDiv, selectedText) => {
 
 	// add id and styling to the div
 	rawDiv.id = 'extensionMessageDiv';
-	rawDiv.innerHTML = rawDiv.innerHTML.replace(selectedText, `<span style="background-color: yellow;">${selectedText}</span>`);
+	rawDiv.innerHTML = rawDiv.innerHTML.replace(selectedText, `<span style="background-color: yellow; color: black;">${selectedText}</span>`);
 	Object.assign(rawDiv.style, {
 		position: 'fixed',
 		bottom: '20px',
