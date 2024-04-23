@@ -1,17 +1,33 @@
+let toggleState = false;
+
+chrome.storage.local.get(['toggle'], (result) => {
+	toggleState = result.toggle || false;
+});
+
+chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
+	if (request.type === 'toggleChanged') {
+		toggleState = request.toggleState;
+		chrome.storage.local.set({ toggle: toggleState });
+		sendResponse({ status: 'Toggle state updated' });
+	}
+});
+
 document.addEventListener('mouseup', () => {
 	clearExistingMessage();
 
-	let selectedText = window.getSelection().toString().trim();
+	if (toggleState) {
+		let selectedText = window.getSelection().toString().trim();
 
-	// send the selected text
-	if (selectedText.length > 0) {
-		chrome.runtime.sendMessage({ text: selectedText }, ({ text, index }) => {
-			const div = document.createElement('div');
+		// send the selected text
+		if (selectedText.length > 0) {
+			chrome.runtime.sendMessage({ type: 'TEXT_SELECTED', text: selectedText }, ({ text, index }) => {
+				const div = document.createElement('div');
 
-			// if index is found, display the text
-			div.innerHTML = index !== -1 ? text : 'not found';
-			showMessageOnPage(div, selectedText);
-		});
+				// if index is found, display the text
+				div.innerHTML = index !== -1 ? text : 'not found';
+				showMessageOnPage(div, selectedText);
+			});
+		}
 	}
 });
 
