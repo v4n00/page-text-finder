@@ -1,8 +1,7 @@
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
 	(async () => {
-		if (request.text) {
+		if (request.type === 'TEXT_SELECTED') {
 			chrome.storage.local.get(['textStorage', 'bufferSize'], (data) => {
-				if (data.textStorage === '') return;
 				const index = data.textStorage.indexOf(request.text);
 				let response = '';
 
