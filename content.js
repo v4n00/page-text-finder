@@ -1,7 +1,7 @@
 document.addEventListener('mouseup', () => {
 	clearExistingMessage();
 
-	let selectedText = window.getSelection().toString();
+	let selectedText = window.getSelection().toString().trim();
 
 	// send the selected text
 	if (selectedText.length > 0) {
