@@ -28,16 +28,16 @@ document.addEventListener('mouseup', async () => {
 
 				if (foundIndexes.length > 0) {
 					currentFoundIndex = 0;
-					displayedText = data.textStorage.substring(foundIndexes[currentFoundIndex] - 1000, foundIndexes[currentFoundIndex] + parseInt(data.bufferSize));
+					displayedText = data.textStorage.substring(foundIndexes[currentFoundIndex] - parseInt(data.bufferSize) / 3, foundIndexes[currentFoundIndex] + parseInt(data.bufferSize));
 				} else resetFoundIndexes();
 
-				showMessageOnPage(displayedText, selectedText);
+				showMessageOnPage(displayedText, selectedText, parseInt(data.bufferSize) / 3);
 			});
 		} else resetFoundIndexes();
 	}
 });
 
-const showMessageOnPage = (displayedText, selectedText) => {
+const showMessageOnPage = (displayedText, selectedText, bufferSize) => {
 	clearExistingMessage();
 
 	const outerDiv = document.createElement('div');
@@ -59,7 +59,7 @@ const showMessageOnPage = (displayedText, selectedText) => {
 	prevButton.onmouseup = () => {
 		if (currentFoundIndex > 0) {
 			currentFoundIndex--;
-			showNewMessage(selectedText);
+			showNewMessage(selectedText, bufferSize);
 		}
 	};
 
@@ -69,14 +69,16 @@ const showMessageOnPage = (displayedText, selectedText) => {
 	nextButton.onmouseup = () => {
 		if (currentFoundIndex < foundIndexes.length - 1) {
 			currentFoundIndex++;
-			showNewMessage(selectedText);
+			showNewMessage(selectedText, bufferSize);
 		}
 	};
 
 	const innerDiv = document.createElement('div');
 	innerDiv.id = '_innerDiv_';
-	innerDiv.innerHTML = displayedText;
-	innerDiv.innerHTML = innerDiv.innerHTML.replace(selectedText, `<span id="_selectedText_">${selectedText}</span>`);
+	// innerDiv.innerHTML = displayedText;
+	innerDiv.innerHTML = wrapFindings(displayedText, selectedText, bufferSize);
+
+	// innerDiv.innerHTML = innerDiv.innerHTML.replace(new RegExp(`${selectedText}`, 'g'), `<span id="_selectedText_">${selectedText}</span>`);
 
 	optionsDiv.appendChild(prevButton);
 	optionsDiv.appendChild(matchesText);
@@ -112,10 +114,24 @@ const resetFoundIndexes = () => {
 	currentFoundIndex = -1;
 };
 
-const showNewMessage = (selectedText) => {
+const showNewMessage = (selectedText, bufferSize) => {
 	chrome.storage.local.get(['textStorage', 'bufferSize'], (data) => {
 		displayedText = data.textStorage.substring(foundIndexes[currentFoundIndex] - 1000, foundIndexes[currentFoundIndex] + parseInt(data.bufferSize));
 
-		showMessageOnPage(displayedText, selectedText);
+		showMessageOnPage(displayedText, selectedText, bufferSize);
 	});
 };
+
+function wrapFindings(text, word, index) {
+	const regex = new RegExp(`${word}`, 'g'); // Regex to match whole words only
+	let result = text.replace(regex, (match, offset) => {
+		console.log(offset, index);
+		if (offset === index) {
+			return `<span id="_selectedTextExact_">${match}</span>`; // Wrap the word at the specific index with unique ID
+		} else {
+			return `<span id="_selectedTextNeighbors_">${match}</span>`; // Wrap other instances with general ID
+		}
+	});
+
+	return result;
+}

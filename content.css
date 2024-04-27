@@ -58,7 +58,11 @@
 	overflow-y: auto;
 	border-radius: 5px;
 }
-#_selectedText_ {
+#_selectedTextExact_ {
+	background-color: orange;
+	color: black;
+}
+#_selectedTextNeighbors_ {
 	background-color: yellow;
 	color: black;
 }
