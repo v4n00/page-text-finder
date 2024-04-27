@@ -9,7 +9,8 @@ Download and install on any Chromium browser from the [Chrome Web Store](https:/
 
 ## Usage
 
-1. Enter the text you want to use as a reference in the extension popup
-2. (Optional) Change the buffer size. This allows for the search result to provide more text after a match
-3. Click `Save`
-4. Highlight text on any page
+- In the extension panel, enter the text you want to use as a reference (you can paste entire websites or documents).  
+- Click `Save` to save the text.  
+- Click `Clear` to clear the text and disable the extension.  
+- When you highlight text on any page, the extension will search for the reference text and highlight all occurences.  
+- You can navigate through the occurences using the `Prev` and `Next` buttons.
