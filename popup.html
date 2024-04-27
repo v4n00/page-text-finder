@@ -15,12 +15,6 @@
 			display: flex;
 			column-gap: 10px;
 		}
-		#saveButton {
-			flex-grow: 1;
-		}
-		#clearButton {
-			flex-grow: 1;
-		}
 		#bufferSize {
 			min-width: 0;
 			max-width: 50px;
@@ -52,7 +46,14 @@
 			border-radius: 30px;
 			padding-right: 10px;
 		}
-		button {
+		#saveButton,
+		#clearButton {
+			flex-grow: 1;
+		}
+		button,
+		a,
+		a:link,
+		a:visited {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
@@ -60,15 +61,20 @@
 			border: 1px solid #ccc;
 			border-radius: 10px;
 			font-size: 0.875rem;
+			padding: 0 0.4rem;
 			line-height: 1.25rem;
 			font-weight: 500;
 			cursor: pointer;
 			font-family: consolas;
+			color: black;
+			background-color: #f0f0f0;
 		}
-		button:hover {
+		button:hover,
+		a:hover {
 			background-color: rgb(250, 250, 250);
 		}
-		button:active {
+		button:active,
+		a:active {
 			background-color: rgb(250, 250, 250);
 			box-shadow: 0 1px #b1b1b1;
 			transform: translateY(1px);
@@ -79,10 +85,7 @@
 			font-size: 0.875rem;
 			line-height: 1.25rem;
 			font-weight: 500;
-			padding-left: 0.75rem;
-			padding-right: 0.75rem;
-			padding-top: 0.5rem;
-			padding-bottom: 0.5rem;
+			padding: 0.5rem 0.75rem;
 			font-family: consolas;
 		}
 	</style>
@@ -91,6 +94,7 @@
 			<div id="textBox" contenteditable></div>
 		</div>
 		<div class="inputHolder">
+			<a id="version" href="https://github.com/v4n00/page-text-finder/releases" target="_blank">v1.1.1</a>
 			<button id="helpButton">?</button>
 			<input type="number" id="bufferSize" placeholder="Buffer" />
 			<button id="clearButton">Clear</button>
