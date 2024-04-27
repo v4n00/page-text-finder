@@ -1,19 +1,13 @@
 #_nextButton_,
 #_prevButton_ {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	white-space: nowrap;
+	height: 100%;
+	padding: 0;
 	border: 1px solid #ccc;
 	border-radius: 10px;
-	font-size: 0.875rem;
-	line-height: 1.25rem;
-	font-weight: 500;
+	font-size: medium;
 	cursor: pointer;
-	padding: 0 0;
 	font-family: consolas;
 	flex-grow: 1;
-	height: 100%;
 	font-weight: bold;
 }
 #_nextButton_:hover,
@@ -27,23 +21,17 @@
 	transform: translateY(1px);
 }
 #_matchesText_ {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	color: maroon;
-	font-size: 0.875rem;
-	line-height: 1.25rem;
+	font-size: medium;
 	font-weight: bold;
 	height: 100%;
-	padding-left: 2rem;
-	padding-right: 2rem;
+	padding: 0 2rem;
 	font-family: consolas;
 }
 #_optionsDiv_ {
 	display: flex;
-	align-items: stretch;
 	width: 100%;
 	height: 100%;
 	max-height: 1.75rem;
@@ -81,8 +69,8 @@
 	background-color: white;
 	color: black;
 	border: 1px solid black;
-	max-width: 100%;
-	max-height: 100%;
+	max-width: 95%;
+	max-height: 95%;
 	border-radius: 5px;
 }
 #_resizeHandle_ {
