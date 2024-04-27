@@ -1,0 +1,87 @@
+#_nextButton_,
+#_prevButton_ {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	font-weight: 500;
+	cursor: pointer;
+	padding: 0 0;
+	font-family: consolas;
+	flex-grow: 1;
+	height: 100%;
+	font-weight: bold;
+}
+#_nextButton_:hover,
+#_prevButton_:hover {
+	background-color: rgb(250, 250, 250);
+}
+#_nextButton_:active,
+#_prevButton_:active {
+	background-color: rgb(250, 250, 250);
+	box-shadow: 0 1px #b1b1b1;
+	transform: translateY(1px);
+}
+#_matchesText_ {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	color: crimson;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	font-weight: bold;
+	height: 100%;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	font-family: consolas;
+}
+#_optionsDiv_ {
+	display: flex;
+	align-items: stretch;
+	width: 100%;
+	height: 100%;
+	max-height: 1.75rem;
+	gap: 10px;
+}
+#_innerDiv_ {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	border-radius: 5px;
+}
+#_selectedTextExact_ {
+	background-color: orange;
+	color: black;
+}
+#_selectedTextNeighbors_ {
+	background-color: yellow;
+	color: black;
+}
+#_outerDiv_ {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	justify-content: center;
+	align-items: center;
+	bottom: 20px;
+	right: 20px;
+	padding: 7px;
+	z-index: 10000;
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	height: 100%;
+	max-width: 50%;
+	max-height: 75%;
+	border-radius: 5px;
+}
