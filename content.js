@@ -1,9 +1,13 @@
 let isExtensionOn = false;
 let foundIndexes = [];
 let currentFoundIndex = -1;
+let isResizing = false;
+let outerDivSize = { width: '400', height: '300' };
 
-chrome.storage.local.get(['toggle'], (result) => {
+chrome.storage.local.get(['toggle', 'outerDivWidth', 'outerDivHeight'], (result) => {
 	isExtensionOn = result.toggle || false;
+	outerDivSize.width = result.outerDivWidth || '400';
+	outerDivSize.height = result.outerDivHeight || '300';
 });
 
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
@@ -15,25 +19,27 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
 });
 
 document.addEventListener('mouseup', async () => {
-	clearExistingMessage();
+	if (!isResizing) {
+		clearExistingMessage();
 
-	if (isExtensionOn) {
-		await new Promise((resolve) => setTimeout(resolve, 0));
-		let selectedText = window.getSelection().toString().trim();
+		if (isExtensionOn) {
+			await new Promise((resolve) => setTimeout(resolve, 0));
+			let selectedText = window.getSelection().toString().trim();
 
-		if (selectedText.length > 0) {
-			chrome.storage.local.get(['textStorage', 'bufferSize'], (data) => {
-				foundIndexes = findAllInstances(data.textStorage, selectedText);
-				let displayedText = 'not found';
+			if (selectedText.length > 0) {
+				chrome.storage.local.get(['textStorage', 'bufferSize'], (data) => {
+					foundIndexes = findAllInstances(data.textStorage, selectedText);
+					let displayedText = 'not found';
 
-				if (foundIndexes.length > 0) {
-					currentFoundIndex = 0;
-					displayedText = data.textStorage.substring(foundIndexes[currentFoundIndex] - parseInt(data.bufferSize) / 3, foundIndexes[currentFoundIndex] + parseInt(data.bufferSize));
-				} else resetFoundIndexes();
+					if (foundIndexes.length > 0) {
+						currentFoundIndex = 0;
+						displayedText = data.textStorage.substring(foundIndexes[currentFoundIndex] - parseInt(data.bufferSize) / 3, foundIndexes[currentFoundIndex] + parseInt(data.bufferSize));
+					} else resetFoundIndexes();
 
-				showMessageOnPage(displayedText, selectedText, parseInt(data.bufferSize) / 3);
-			});
-		} else resetFoundIndexes();
+					showMessageOnPage(displayedText, selectedText, parseInt(data.bufferSize) / 3);
+				});
+			} else resetFoundIndexes();
+		}
 	}
 });
 
@@ -42,49 +48,83 @@ const showMessageOnPage = (displayedText, selectedText, bufferSize) => {
 
 	const outerDiv = document.createElement('div');
 	outerDiv.addEventListener('mouseup', (e) => {
-		e.stopPropagation();
+		if (!isResizing) e.stopPropagation();
 	});
 	outerDiv.id = '_outerDiv_';
+	if (displayedText !== 'not found') {
+		outerDiv.style.width = `${outerDivSize.width}px`;
+		outerDiv.style.height = `${outerDivSize.height}px`;
 
-	const optionsDiv = document.createElement('div');
-	optionsDiv.id = '_optionsDiv_';
+		const resizeHandle = document.createElement('div');
+		resizeHandle.id = '_resizeHandle_';
+		resizeHandle.innerHTML = '\u21F1 ';
 
-	const matchesText = document.createElement('span');
-	matchesText.id = '_matchesText_';
-	matchesText.innerHTML = `Matches: ${currentFoundIndex + 1}/${foundIndexes.length}`;
+		let startX, startY, startWidth, startHeight;
 
-	const prevButton = document.createElement('button');
-	prevButton.id = '_prevButton_';
-	prevButton.innerHTML = 'Prev';
-	prevButton.onmouseup = () => {
-		if (currentFoundIndex > 0) {
-			currentFoundIndex--;
-			showNewMessage(selectedText, bufferSize);
-		}
-	};
+		resizeHandle.addEventListener('mousedown', (e) => {
+			e.stopPropagation();
+			e.preventDefault();
+			isResizing = true;
+			startX = e.clientX;
+			startY = e.clientY;
+			startWidth = parseInt(document.defaultView.getComputedStyle(outerDiv).width, 10);
+			startHeight = parseInt(document.defaultView.getComputedStyle(outerDiv).height, 10);
+		});
 
-	const nextButton = document.createElement('button');
-	nextButton.id = '_nextButton_';
-	nextButton.innerHTML = 'Next';
-	nextButton.onmouseup = () => {
-		if (currentFoundIndex < foundIndexes.length - 1) {
-			currentFoundIndex++;
-			showNewMessage(selectedText, bufferSize);
-		}
-	};
+		document.addEventListener('mousemove', (e) => {
+			if (isResizing) {
+				outerDivSize.width = startWidth - (e.clientX - startX);
+				outerDivSize.height = startHeight - (e.clientY - startY);
+				outerDiv.style.width = `${Math.max(outerDivSize.width, 100)}px`;
+				outerDiv.style.height = `${Math.max(outerDivSize.height, 50)}px`;
+			}
+		});
 
-	const innerDiv = document.createElement('div');
-	innerDiv.id = '_innerDiv_';
-	// innerDiv.innerHTML = displayedText;
-	innerDiv.innerHTML = wrapFindings(displayedText, selectedText, bufferSize);
+		document.addEventListener('mouseup', (e) => {
+			isResizing = false;
+			chrome.storage.local.set({ outerDivWidth: outerDivSize.width, outerDivHeight: outerDivSize.height });
+		});
 
-	// innerDiv.innerHTML = innerDiv.innerHTML.replace(new RegExp(`${selectedText}`, 'g'), `<span id="_selectedText_">${selectedText}</span>`);
+		const optionsDiv = document.createElement('div');
+		optionsDiv.id = '_optionsDiv_';
 
-	optionsDiv.appendChild(prevButton);
-	optionsDiv.appendChild(matchesText);
-	optionsDiv.appendChild(nextButton);
-	outerDiv.appendChild(innerDiv);
-	outerDiv.appendChild(optionsDiv);
+		const matchesText = document.createElement('span');
+		matchesText.id = '_matchesText_';
+		matchesText.innerHTML = `Matches: ${currentFoundIndex + 1}/${foundIndexes.length}`;
+
+		const prevButton = document.createElement('button');
+		prevButton.id = '_prevButton_';
+		prevButton.innerHTML = 'Prev';
+		prevButton.onmouseup = () => {
+			if (currentFoundIndex > 0) {
+				currentFoundIndex--;
+				showNewMessage(selectedText, bufferSize);
+			}
+		};
+
+		const nextButton = document.createElement('button');
+		nextButton.id = '_nextButton_';
+		nextButton.innerHTML = 'Next';
+		nextButton.onmouseup = () => {
+			if (currentFoundIndex < foundIndexes.length - 1) {
+				currentFoundIndex++;
+				showNewMessage(selectedText, bufferSize);
+			}
+		};
+
+		const innerDiv = document.createElement('div');
+		innerDiv.id = '_innerDiv_';
+		innerDiv.innerHTML = wrapFindings(displayedText, selectedText, bufferSize);
+
+		outerDiv.appendChild(resizeHandle);
+		optionsDiv.appendChild(prevButton);
+		optionsDiv.appendChild(matchesText);
+		optionsDiv.appendChild(nextButton);
+		outerDiv.appendChild(innerDiv);
+		outerDiv.appendChild(optionsDiv);
+	} else {
+		outerDiv.innerHTML = displayedText;
+	}
 	document.body.appendChild(outerDiv);
 };
 
@@ -125,7 +165,6 @@ const showNewMessage = (selectedText, bufferSize) => {
 function wrapFindings(text, word, index) {
 	const regex = new RegExp(`${word}`, 'g'); // Regex to match whole words only
 	let result = text.replace(regex, (match, offset) => {
-		console.log(offset, index);
 		if (offset === index) {
 			return `<span id="_selectedTextExact_">${match}</span>`; // Wrap the word at the specific index with unique ID
 		} else {
