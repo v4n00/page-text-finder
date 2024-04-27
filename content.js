@@ -44,43 +44,17 @@ const showMessageOnPage = (displayedText, selectedText) => {
 	outerDiv.addEventListener('mouseup', (e) => {
 		e.stopPropagation();
 	});
-	outerDiv.id = 'extensionMessageDiv';
-	Object.assign(outerDiv.style, {
-		position: 'fixed',
-		display: 'flex',
-		'flex-direction': 'column',
-		gap: '10px',
-		'justify-content': 'center',
-		'align-items': 'center',
-		bottom: '20px',
-		right: '20px',
-		padding: '10px',
-		zIndex: '10000',
-		backgroundColor: 'white',
-		color: 'black',
-		border: '1px solid black',
-		'max-width': '50%',
-		'max-height': '75%',
-		borderRadius: '5px',
-	});
+	outerDiv.id = '_outerDiv_';
 
 	const optionsDiv = document.createElement('div');
-	Object.assign(optionsDiv.style, {
-		display: 'flex',
-		'justify-content': 'space-around',
-		'align-items': 'center',
-		width: '100%',
-	});
+	optionsDiv.id = '_optionsDiv_';
 
 	const matchesText = document.createElement('span');
+	matchesText.id = '_matchesText_';
 	matchesText.innerHTML = `Matches: ${currentFoundIndex + 1}/${foundIndexes.length}`;
-	Object.assign(matchesText.style, {
-		color: 'red',
-		fontWeight: 'bold',
-		'font-size': '1.2em',
-	});
 
 	const prevButton = document.createElement('button');
+	prevButton.id = '_prevButton_';
 	prevButton.innerHTML = 'Prev';
 	prevButton.onmouseup = () => {
 		if (currentFoundIndex > 0) {
@@ -90,6 +64,7 @@ const showMessageOnPage = (displayedText, selectedText) => {
 	};
 
 	const nextButton = document.createElement('button');
+	nextButton.id = '_nextButton_';
 	nextButton.innerHTML = 'Next';
 	nextButton.onmouseup = () => {
 		if (currentFoundIndex < foundIndexes.length - 1) {
@@ -99,17 +74,9 @@ const showMessageOnPage = (displayedText, selectedText) => {
 	};
 
 	const innerDiv = document.createElement('div');
+	innerDiv.id = '_innerDiv_';
 	innerDiv.innerHTML = displayedText;
-	innerDiv.innerHTML = innerDiv.innerHTML.replace(selectedText, `<span style="background-color: yellow; color: black;">${selectedText}</span>`);
-	Object.assign(innerDiv.style, {
-		backgroundColor: 'white',
-		color: 'black',
-		border: '1px solid black',
-		width: '100%',
-		height: '100%',
-		'overflow-y': 'auto',
-		borderRadius: '5px',
-	});
+	innerDiv.innerHTML = innerDiv.innerHTML.replace(selectedText, `<span id="_selectedText_">${selectedText}</span>`);
 
 	optionsDiv.appendChild(prevButton);
 	optionsDiv.appendChild(matchesText);
@@ -122,7 +89,7 @@ const showMessageOnPage = (displayedText, selectedText) => {
 // utils
 
 const clearExistingMessage = () => {
-	let existingMessage = document.getElementById('extensionMessageDiv');
+	let existingMessage = document.getElementById('_outerDiv_');
 	if (existingMessage) {
 		existingMessage.parentNode.removeChild(existingMessage);
 	}
