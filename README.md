@@ -5,7 +5,7 @@ The user will specify the text in which the extension performs the search before
 
 ## Download
 
-Download and install on any Chromium browser from the [Chrome Web Store](https://chromewebstore.google.com/detail/pagetextfinder/kkhbednagdefjojfffneapihhpgnejbn)
+Download and install on any Chromium browser from the [Chrome Web Store](https://chromewebstore.google.com/detail/pagetextfinder/kkhbednagdefjojfffneapihhpgnejbn).
 
 ## Usage
 
@@ -14,3 +14,7 @@ Download and install on any Chromium browser from the [Chrome Web Store](https:/
 - Click `Clear` to clear the text and disable the extension.  
 - When you highlight text on any page, the extension will search for the reference text and highlight all occurences.  
 - You can navigate through the occurences using the `Prev` and `Next` buttons.
+
+## Mini version
+
+If you want to use a lightweight, one-time use version of this extension that is installed silently, you can use the [mini version of this extension](https://github.com/v4n00/page-text-finder-mini).
