@@ -17,10 +17,6 @@
 			overflow: scroll;
 			outline: none;
 		}
-		#saveButton,
-		#clearButton {
-			flex-grow: 1;
-		}
 		button {
 			height: 100%;
 			border: 1px solid #ccc;
@@ -30,6 +26,7 @@
 			font-family: consolas;
 			color: black;
 			background-color: #f0f0f0;
+			flex-grow: 1;
 		}
 		button:hover {
 			background-color: rgb(250, 250, 250);
@@ -39,21 +36,10 @@
 			box-shadow: 0 1px #b1b1b1;
 			transform: translateY(1px);
 		}
-		a {
-			color: #0077cc;
-			text-decoration: none;
-			font-size: small;
-			align-items: center;
-			border: 1px solid #0077cc;
-			border-radius: 10px;
-			padding: 3px;
-			cursor: default;
-		}
 	</style>
 	<body>
 		<div id="textStorageBox" contenteditable></div>
 		<div class="buttonHolder">
-			<a>v1.2.1</a>
 			<button id="clearButton">Clear</button>
 			<button id="saveButton">Save</button>
 		</div>
